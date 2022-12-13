@@ -1,5 +1,6 @@
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,9 +13,7 @@ namespace API.Controllers
      *  [controller] is replaces for users -> https://localhost:port/api/users
     */
 
-    [ApiController]
-    [Route("api/[controller]")]             // /api/users
-    public class UsersController : ControllerBase
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
 
@@ -31,6 +30,7 @@ namespace API.Controllers
             return users;
         }
 
+        [Authorize]
         [HttpGet("{id}")]   // GET /api/users/{id}
         public async Task<ActionResult<AppUser>> GetUserById(int id)
         {
