@@ -13,6 +13,7 @@ namespace API.Controllers
      *  [controller] is replaces for users -> https://localhost:port/api/users
     */
 
+    [Authorize]
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
@@ -30,7 +31,6 @@ namespace API.Controllers
             return users;
         }
 
-        [Authorize]
         [HttpGet("{id}")]   // GET /api/users/{id}
         public async Task<ActionResult<AppUser>> GetUserById(int id)
         {
